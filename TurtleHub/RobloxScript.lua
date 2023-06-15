@@ -18,6 +18,15 @@ local egglist = {}
 local zone = {}
 local workspace = game:GetService("Workspace")
 
+local point = {
+      Grassy = Vector3.new(-103.1620101928711, 9.07790756225586, 336.9129333496094),
+      Desert = Vector3.new(-190.3627166748047, 9.07800006866455, 356.7900085449219),
+      Ice = Vector3.new(-245.17446899414062, 9.128000259399414, 304.05419921875),
+      Cave = Vector3.new(-334.85699462890625, 9.07800006866455, 292.34765625),
+      Lava = Vector3.new(-422.38641357421875, 9.07800006866455, 298.4917907714844),
+      Toxic = Vector3.new(-509.95849609375, 9.07800006866455, 304.6077880859375)
+}
+
 function CreateTable(localtable,localstring)
   for _,v in pairs(localtable:GetChildren()) do
     table.insert(localstring,v.Name)
@@ -29,15 +38,15 @@ CreateTable(workspace.Training,zone)
 
 T1:AddDropdown({
    Name = "Select Zone",
-   Default = "{}",
+   Default = "Grassy",
    Options = zone,
    Callback = function(Value)
-      _G.ReturnZone = Value or "Desert"
+      _G.ReturnZone = Value or "Grassy"
    end    
 })
 
 T1:AddToggle({
-  Name = "Auto Reel or Rod",
+  Name = "Auto Click",
   Default = false,
   Callback = function(Value)
     _G.Rod = Value
@@ -61,6 +70,18 @@ T1:AddToggle({
 })
 
 T1:AddToggle({
+  Name = "Auto Fish",
+  Default = false,
+  Callback = function(Value)
+    _G.Cast = Value
+      while wait() do
+       if _G.Cast == false then break end
+        game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point[_ReturnZone],_G.ReturnZone)
+      end
+  end    
+})
+
+T1:AddToggle({
   Name = "Auto Rebirth",
   Default = false,
   Callback = function(Value)
@@ -76,9 +97,9 @@ T1:AddToggle({
   Name = "Auto Claim Gift",
   Default = false,
   Callback = function(Value)
-    _G.Rod = Value
+    _G.Gift = Value
       while wait() do
-       if _G.Rod == false then break end
+       if _G.Gift == false then break end
         game:GetService("ReplicatedStorage").Remotes.Reward:FireServer("Gift",1)
         game:GetService("ReplicatedStorage").Remotes.Reward:FireServer("Gift",2)
         game:GetService("ReplicatedStorage").Remotes.Reward:FireServer("Gift",3)
@@ -135,7 +156,7 @@ T1:AddToggle({
 
 T2:AddDropdown({
    Name = "Select Egg",
-   Default = "{}",
+   Default = "Grassy",
    Options = egglist,
    Callback = function(Value)
      _G.ReturnEgg = Value or "Grassy"
@@ -147,7 +168,7 @@ T2:AddDropdown({
    Default = "1",
    Options = {"1","3"},
    Callback = function(Value)
-     _G.TotalEgg = Value or 1
+     _G.TotalEgg = tonumber(Value) or 1
   end    
 })
 
