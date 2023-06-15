@@ -14,6 +14,12 @@ Icon = "rbxassetid://0",
 PremiumOnly = false
 })
 
+local T3 = Window:MakeTab({
+Name = "Teleport",
+Icon = "rbxassetid://0",
+PremiumOnly = false
+})
+
 local egglist = {}
 local zone = {}
 local workspace = game:GetService("Workspace")
@@ -35,6 +41,22 @@ end
 
 CreateTable(workspace.Eggs,egglist)
 CreateTable(workspace.Training,zone)
+
+T3:AddDropdown({
+   Name = "Select Zone",
+   Default = "Grassy",
+   Options = zone,
+   Callback = function(Value)
+      _G.ReturnTeleportZone = Value or "Grassy"
+   end    
+})
+
+T3:AddButton({
+  Name = "Teleport",
+  Callback = function()
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace.Water[_G.ReturnTeleportZone].Position)
+  end    
+})
 
 T1:AddDropdown({
    Name = "Select Zone",
