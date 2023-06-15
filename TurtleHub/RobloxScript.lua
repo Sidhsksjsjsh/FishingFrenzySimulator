@@ -31,6 +31,12 @@ local point = {
       Cave = Vector3.new(-334.85699462890625, 9.07800006866455, 292.34765625),
       Lava = Vector3.new(-422.38641357421875, 9.07800006866455, 298.4917907714844),
       Toxic = Vector3.new(-509.95849609375, 9.07800006866455, 304.6077880859375)
+      Toy = Vector3.new(-872.5955200195312, 16.9407958984375, 348.67193603515625),
+      Cyber = Vector3.new(-969.740234375, 16.4407958984375, 339.7765808105469),
+      Cloud = Vector3.new(-1058.516845703125, 16.4407958984375, 338.5137634277344),
+      Samurai = Vector3.new(-1313.56201171875, 17.034076690673828, 345.7518005371094),
+      Farm = Vector3.new(-1146.83154296875, 17.034076690673828, 375.3365478515625),
+      HauntedForest = Vector3.new(-1223.019775390625, 17.034076690673828, 356.712158203125)
 }
 
 function CreateTable(localtable,localstring)
@@ -98,7 +104,11 @@ T1:AddToggle({
     _G.Cast = Value
       while wait() do
        if _G.Cast == false then break end
-        game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point[_ReturnZone],_G.ReturnZone)
+          if _G.ReturnZone == "Haunted Forest" then
+             game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point.HauntedForest,_G.ReturnZone)
+          else
+             game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point[_G.ReturnZone],_G.ReturnZone)
+          end
       end
   end    
 })
