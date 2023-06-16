@@ -285,7 +285,7 @@ S2:AddToggle({
        if _G.IGold == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
         gold(pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)])
-        RemoveTable(workspace.Pets[client.Name],pet)
+        -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
 })
@@ -299,7 +299,7 @@ S2:AddToggle({
        if _G.IDiamond == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
         diamond(pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)])
-        RemoveTable(workspace.Pets[client.Name],pet)
+        -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
 })
