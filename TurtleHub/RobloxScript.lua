@@ -20,6 +20,12 @@ Icon = "rbxassetid://0",
 PremiumOnly = false
 })
 
+local T4 = Window:MakeTab({
+Name = "Another Script",
+Icon = "rbxassetid://0",
+PremiumOnly = false
+})
+
 local egglist = {}
 local zone = {}
 local workspace = game:GetService("Workspace")
@@ -61,6 +67,15 @@ T3:AddButton({
   Name = "Teleport",
   Callback = function()
       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace.Water[_G.ReturnTeleportZone].Position)
+  end    
+})
+
+T4:AddParagraph("Credit","Tora IsMe on yt")
+
+T4:AddButton({
+  Name = "Fishing Frenzy Simulator",
+  Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0fishing"))()
   end    
 })
 
