@@ -212,6 +212,17 @@ T2:AddToggle({
       while wait() do
        if _G.egg == false then break end
         game:GetService("ReplicatedStorage").Remotes.Egg:FireServer(_G.ReturnEgg,_G.TotalEgg)
+        end
+  end    
+})
+
+T2:AddToggle({
+  Name = "Auto Equip Best",
+  Default = false,
+  Callback = function(Value)
+    _G.eb = Value
+      while wait() do
+       if _G.eb == false then break end
         game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("EquipBest")
       end
   end    
