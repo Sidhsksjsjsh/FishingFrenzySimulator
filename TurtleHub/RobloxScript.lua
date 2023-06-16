@@ -9,9 +9,17 @@ PremiumOnly = false
 })
 
 local T2 = Window:MakeTab({
-Name = "Egg",
+Name = "Pet & Egg",
 Icon = "rbxassetid://0",
 PremiumOnly = false
+})
+
+local S1 = T2:AddSection({
+Name = "Hatch | Egg"
+})
+
+local S2 = T2:AddSection({
+Name = "Machine | Pet"
 })
 
 local T3 = Window:MakeTab({
@@ -20,16 +28,43 @@ Icon = "rbxassetid://0",
 PremiumOnly = false
 })
 
-local T4 = Window:MakeTab({
-Name = "Another Script",
-Icon = "rbxassetid://0",
-PremiumOnly = false
-})
+function gold(pet_1,pet_2,pet_3,pet_4,pet_5)
+local args = {
+    [1] = "Machine",
+    [2] = {
+        [1] = pet_1,
+        [2] = pet_2,
+        [3] = pet_3,
+        [4] = pet_4,
+        [5] = pet_5
+    },
+    [3] = "Gold"
+}
+
+game:GetService("ReplicatedStorage").Remotes.Pet:FireServer(unpack(args))
+end
+
+function diamond(pet_1,pet_2,pet_3,pet_4,pet_5)
+local args = {
+    [1] = "Machine",
+    [2] = {
+        [1] = pet_1,
+        [2] = pet_2,
+        [3] = pet_3,
+        [4] = pet_4,
+        [5] = pet_5
+    },
+    [3] = "Diamond"
+}
+
+game:GetService("ReplicatedStorage").Remotes.Pet:FireServer(unpack(args))
+end
 
 local egglist = {}
 local zone = {}
+local pet = {}
 local workspace = game:GetService("Workspace")
-
+local client = game.Players.LocalPlayer
 local point = {
       Grassy = Vector3.new(-103.1620101928711, 9.07790756225586, 336.9129333496094),
       Desert = Vector3.new(-190.3627166748047, 9.07800006866455, 356.7900085449219),
@@ -45,6 +80,12 @@ local point = {
       HauntedForest = Vector3.new(-1223.019775390625, 17.034076690673828, 356.712158203125),
 }
 
+function RemoveTable(localtable,localstring)
+  for _,v in pairs(localtable:GetChildren()) do
+    table.remove(localstring,v.Name)
+   end
+end
+
 function CreateTable(localtable,localstring)
   for _,v in pairs(localtable:GetChildren()) do
     table.insert(localstring,v.Name)
@@ -53,6 +94,7 @@ end
 
 CreateTable(workspace.Eggs,egglist)
 CreateTable(workspace.Training,zone)
+CreateTable(workspace.Pets[client.Name],pet)
 
 T3:AddDropdown({
    Name = "Select Zone",
@@ -67,15 +109,6 @@ T3:AddButton({
   Name = "Teleport",
   Callback = function()
       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace.Water[_G.ReturnTeleportZone].Position)
-  end    
-})
-
-T4:AddParagraph("Credit","Tora IsMe on yt")
-
-T4:AddButton({
-  Name = "Fishing Frenzy Simulator",
-  Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0fishing"))()
   end    
 })
 
@@ -201,7 +234,7 @@ T1:AddToggle({
   end    
 })
 
-T2:AddDropdown({
+S1:AddDropdown({
    Name = "Select Egg",
    Default = "Grassy",
    Options = egglist,
@@ -210,7 +243,7 @@ T2:AddDropdown({
   end    
 })
 
-T2:AddDropdown({
+S1:AddDropdown({
    Name = "Total Hatch",
    Default = "1",
    Options = {"1","3"},
@@ -219,7 +252,7 @@ T2:AddDropdown({
   end    
 })
 
-T2:AddToggle({
+S1:AddToggle({
   Name = "Auto Hatch",
   Default = false,
   Callback = function(Value)
@@ -231,7 +264,7 @@ T2:AddToggle({
   end    
 })
 
-T2:AddToggle({
+S1:AddToggle({
   Name = "Auto Equip Best",
   Default = false,
   Callback = function(Value)
@@ -239,6 +272,34 @@ T2:AddToggle({
       while wait() do
        if _G.eb == false then break end
         game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("EquipBest")
+      end
+  end    
+})
+
+S2:AddToggle({
+  Name = "Instant Gold",
+  Default = false,
+  Callback = function(Value)
+    _G.IGold = Value
+      while wait() do
+       if _G.IGold == false then break end
+        CreateTable(workspace.Pets[client.Name],pet)
+        gold(pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)])
+        RemoveTable(workspace.Pets[client.Name],pet)
+      end
+  end    
+})
+
+S2:AddToggle({
+  Name = "Instant Diamond",
+  Default = false,
+  Callback = function(Value)
+    _G.IDiamond = Value
+      while wait() do
+       if _G.IDiamond == false then break end
+        CreateTable(workspace.Pets[client.Name],pet)
+        diamond(pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)])
+        RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
 })
