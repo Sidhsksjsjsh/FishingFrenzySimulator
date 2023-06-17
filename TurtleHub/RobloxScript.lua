@@ -22,6 +22,10 @@ local S2 = T2:AddSection({
 Name = "Machine | Pet"
 })
 
+local S3 = T2:AddSection({
+Name = "Grow Pet | instant has been patched"
+})
+
 local T3 = Window:MakeTab({
 Name = "Teleport",
 Icon = "rbxassetid://0",
@@ -85,7 +89,7 @@ local point = {
 function checkDoors(zone)
  for i,v in pairs(game:GetService("Workspace").MapDoors:GetChildren()) do
            if v.Name == zone then
-            if v[zone].Transparency == 1 then
+            if v.Transparency == 1 then
                return true
              end
          end
@@ -119,7 +123,8 @@ CreateTable(workspace.Pets[client.Name],pet)
 
 local LocalTablePetString = {
      GoldenPet = "",
-     DiamondPet = ""
+     DiamondPet = "",
+     GrowPet = ""
 }
 
 T3:AddDropdown({
@@ -331,6 +336,21 @@ S2:AddToggle({
         CreateTable(workspace.Pets[client.Name],pet)
         LocalTablePetString.DiamondPet = pet[math.random(1, #pet)]
         diamond(LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet)
+        -- RemoveTable(workspace.Pets[client.Name],pet)
+      end
+  end    
+})
+
+S3:AddToggle({
+  Name = "Instant Grow Pet",
+  Default = false,
+  Callback = function(Value)
+    _G.IGrow = Value
+      while wait() do
+       if _G.IGrow == false then break end
+        CreateTable(workspace.Pets[client.Name],pet)
+        LocalTablePetString.GrowPet = pet[math.random(1, #pet)]
+        game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("Grow",LocalTablePetString.GrowPet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
