@@ -80,6 +80,21 @@ local point = {
       HauntedForest = Vector3.new(-1223.019775390625, 17.034076690673828, 356.712158203125),
 }
 
+function checkDoors(zone)
+    if not game:GetService("Workspace").MapDoors:FindFirstChild(zone) then
+        return true
+     end
+end
+
+function SendNotify(title,content)
+OrionLib:MakeNotification({
+    Name = title,
+    Content = content,
+    Image = "rbxassetid://0",
+    Time = 5
+})
+end
+
 function RemoveTable(localtable,localstring)
   for _,v in pairs(localtable:GetChildren()) do
     table.remove(localstring,v.Name)
@@ -108,7 +123,11 @@ T3:AddDropdown({
 T3:AddButton({
   Name = "Teleport",
   Callback = function()
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(workspace.Water[_G.ReturnTeleportZone].Position)
+     if checkDoors(_G.ReturnTeleportZone) then
+         client.Character.HumanoidRootPart.CFrame = CFrame.new(workspace.Water[_G.ReturnTeleportZone].Position)
+     else
+         SendNotify("Error","Sorry you can't teleport to areas you haven't unlocked yet.")
+      end
   end    
 })
 
@@ -140,7 +159,12 @@ T1:AddToggle({
     _G.Train = Value
       while wait() do
        if _G.Train == false then break end
-        game:GetService("ReplicatedStorage").Remotes.Train:FireServer("Train",workspace.Training[_G.ReturnZone].Hole)
+          if checkDoors(_G.ReturnZone) then
+             game:GetService("ReplicatedStorage").Remotes.Train:FireServer("Train",workspace.Training[_G.ReturnZone].Hole)
+          else
+             break
+             SendNotify("Error","Sorry you can't train in an area you haven't unlocked yet.")
+          end
       end
   end    
 })
@@ -152,10 +176,15 @@ T1:AddToggle({
     _G.Cast = Value
       while wait() do
        if _G.Cast == false then break end
-          if _G.ReturnZone == "Haunted Forest" then
-             game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point.HauntedForest,_G.ReturnZone)
+          if checkDoors(_G.ReturnZone) then
+             if _G.ReturnZone == "Haunted Forest" then
+                game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point.HauntedForest,_G.ReturnZone)
           else
-             game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point[_G.ReturnZone],_G.ReturnZone)
+                game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point[_G.ReturnZone],_G.ReturnZone)
+             end
+          else
+              break
+              SendNotify("Error","Sorry you can't fish in an area you haven't unlocked yet.")
           end
       end
   end    
@@ -259,7 +288,12 @@ S1:AddToggle({
     _G.egg = Value
       while wait() do
        if _G.egg == false then break end
-        game:GetService("ReplicatedStorage").Remotes.Egg:FireServer(_G.ReturnEgg,_G.TotalEgg)
+          if checkDoors(_G.ReturnEgg) then
+             game:GetService("ReplicatedStorage").Remotes.Egg:FireServer(_G.ReturnEgg,_G.TotalEgg)
+          else
+             break
+             SendNotify("Error","Sorry you can't hatch eggs in areas you haven't unlocked yet.")
+            end
         end
   end    
 })
@@ -284,7 +318,8 @@ S2:AddToggle({
       while wait() do
        if _G.IGold == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
-        gold(pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)])
+        local goldpet = pet[math.random(1, #pet)]
+        gold(goldpet,goldpet,goldpet,goldpet,goldpet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
@@ -298,7 +333,8 @@ S2:AddToggle({
       while wait() do
        if _G.IDiamond == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
-        diamond(pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)],pet[math.random(1, #pet)])
+        local diamondpet = pet[math.random(1, #pet)]
+        diamond(diamondpet,diamondpet,diamondpet,diamondpet,diamondpet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
