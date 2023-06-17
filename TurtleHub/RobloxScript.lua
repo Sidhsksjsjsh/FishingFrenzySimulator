@@ -29,7 +29,7 @@ PremiumOnly = false
 })
 
 function gold(pet_1,pet_2,pet_3,pet_4,pet_5)
-local args = {
+--[[local args = {
     [1] = "Machine",
     [2] = {
         [1] = pet_1,
@@ -40,12 +40,13 @@ local args = {
     },
     [3] = "Gold"
 }
-
-game:GetService("ReplicatedStorage").Remotes.Pet:FireServer(unpack(args))
+unpack(args)
+]]
+game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("Machine",{pet_1,pet_2,pet_3,pet_4,pet_5},"Gold")
 end
 
 function diamond(pet_1,pet_2,pet_3,pet_4,pet_5)
-local args = {
+--[[local args = {
     [1] = "Machine",
     [2] = {
         [1] = pet_1,
@@ -56,8 +57,9 @@ local args = {
     },
     [3] = "Diamond"
 }
-
-game:GetService("ReplicatedStorage").Remotes.Pet:FireServer(unpack(args))
+unpack(args)
+]]
+game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("Machine",{pet_1,pet_2,pet_3,pet_4,pet_5},"Diamond")
 end
 
 local egglist = {}
@@ -82,8 +84,10 @@ local point = {
 
 function checkDoors(zone)
  for i,v in pairs(game:GetService("Workspace").MapDoors:GetChildren()) do
-           if v.Name == zone and v.Transparency == 1 then
+           if v.Name == zone then
+            if v[zone].Transparency == 1 then
                return true
+             end
          end
      end
 end
@@ -111,7 +115,12 @@ end
 
 CreateTable(workspace.Eggs,egglist)
 CreateTable(workspace.Training,zone)
--- CreateTable(workspace.Pets[client.Name],pet)
+CreateTable(workspace.Pets[client.Name],pet)
+
+local LocalTablePetString = {
+     GoldenPet = "",
+     DiamondPet = ""
+}
 
 T3:AddDropdown({
    Name = "Select Zone",
@@ -305,8 +314,8 @@ S2:AddToggle({
       while wait() do
        if _G.IGold == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
-        local goldpet = pet[math.random(1, #pet)]
-        gold(goldpet,goldpet,goldpet,goldpet,goldpet)
+        LocalTablePetString.GoldenPet = pet[math.random(1, #pet)]
+        gold(LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
@@ -320,8 +329,8 @@ S2:AddToggle({
       while wait() do
        if _G.IDiamond == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
-        local diamondpet = pet[math.random(1, #pet)]
-        diamond(diamondpet,diamondpet,diamondpet,diamondpet,diamondpet)
+        LocalTablePetString.DiamondPet = pet[math.random(1, #pet)]
+        diamond(LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
