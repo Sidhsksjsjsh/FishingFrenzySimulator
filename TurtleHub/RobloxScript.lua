@@ -81,8 +81,10 @@ local point = {
 }
 
 function checkDoors(zone)
-    if not game:GetService("Workspace").MapDoors:FindFirstChild(zone) then
-        return true
+ for i,v in pairs(game:GetService("Workspace").MapDoors:GetChildren()) do
+           if v.Name == zone and v.Transparency == 1 then
+               return true
+         end
      end
 end
 
@@ -109,7 +111,7 @@ end
 
 CreateTable(workspace.Eggs,egglist)
 CreateTable(workspace.Training,zone)
-CreateTable(workspace.Pets[client.Name],pet)
+-- CreateTable(workspace.Pets[client.Name],pet)
 
 T3:AddDropdown({
    Name = "Select Zone",
