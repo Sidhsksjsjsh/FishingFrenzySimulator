@@ -159,12 +159,7 @@ T1:AddToggle({
     _G.Train = Value
       while wait() do
        if _G.Train == false then break end
-          if checkDoors(_G.ReturnZone) then
-             game:GetService("ReplicatedStorage").Remotes.Train:FireServer("Train",workspace.Training[_G.ReturnZone].Hole)
-          else
-             break
-             SendNotify("Error","Sorry you can't train in an area you haven't unlocked yet.")
-          end
+          game:GetService("ReplicatedStorage").Remotes.Train:FireServer("Train",workspace.Training[_G.ReturnZone].Hole)
       end
   end    
 })
@@ -176,16 +171,11 @@ T1:AddToggle({
     _G.Cast = Value
       while wait() do
        if _G.Cast == false then break end
-          if checkDoors(_G.ReturnZone) then
-             if _G.ReturnZone == "Haunted Forest" then
+          if _G.ReturnZone == "Haunted Forest" then
                 game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point.HauntedForest,_G.ReturnZone)
           else
                 game:GetService("ReplicatedStorage").Remotes.Rod:FireServer("Cast",point[_G.ReturnZone],_G.ReturnZone)
              end
-          else
-              break
-              SendNotify("Error","Sorry you can't fish in an area you haven't unlocked yet.")
-          end
       end
   end    
 })
@@ -288,12 +278,7 @@ S1:AddToggle({
     _G.egg = Value
       while wait() do
        if _G.egg == false then break end
-          if checkDoors(_G.ReturnEgg) then
-             game:GetService("ReplicatedStorage").Remotes.Egg:FireServer(_G.ReturnEgg,_G.TotalEgg)
-          else
-             break
-             SendNotify("Error","Sorry you can't hatch eggs in areas you haven't unlocked yet.")
-            end
+          game:GetService("ReplicatedStorage").Remotes.Egg:FireServer(_G.ReturnEgg,_G.TotalEgg)
         end
   end    
 })
