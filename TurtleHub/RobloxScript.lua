@@ -33,36 +33,10 @@ PremiumOnly = false
 })
 
 function gold(pet_1,pet_2,pet_3,pet_4,pet_5)
---[[local args = {
-    [1] = "Machine",
-    [2] = {
-        [1] = pet_1,
-        [2] = pet_2,
-        [3] = pet_3,
-        [4] = pet_4,
-        [5] = pet_5
-    },
-    [3] = "Gold"
-}
-unpack(args)
-]]
 game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("Machine",{pet_1,pet_2,pet_3,pet_4,pet_5},"Gold")
 end
 
 function diamond(pet_1,pet_2,pet_3,pet_4,pet_5)
---[[local args = {
-    [1] = "Machine",
-    [2] = {
-        [1] = pet_1,
-        [2] = pet_2,
-        [3] = pet_3,
-        [4] = pet_4,
-        [5] = pet_5
-    },
-    [3] = "Diamond"
-}
-unpack(args)
-]]
 game:GetService("ReplicatedStorage").Remotes.Pet:FireServer("Machine",{pet_1,pet_2,pet_3,pet_4,pet_5},"Diamond")
 end
 
@@ -123,8 +97,7 @@ CreateTable(workspace.Pets[client.Name],pet)
 
 local LocalTablePetString = {
      GoldenPet = "",
-     DiamondPet = "",
-     GrowPet = ""
+     DiamondPet = ""
 }
 
 T3:AddDropdown({
@@ -340,7 +313,7 @@ S2:AddToggle({
       end
   end    
 })
-
+--[[
 S3:AddToggle({
   Name = "Instant Grow Pet",
   Default = false,
@@ -355,3 +328,4 @@ S3:AddToggle({
       end
   end    
 })
+]]
