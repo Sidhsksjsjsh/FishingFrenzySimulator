@@ -95,10 +95,8 @@ CreateTable(workspace.Eggs,egglist)
 CreateTable(workspace.Training,zone)
 CreateTable(workspace.Pets[client.Name],pet)
 
-local LocalTablePetString = {
-     GoldenPet = "",
-     DiamondPet = ""
-}
+local GoldenPet = ""
+local DiamondPet = ""
 
 T3:AddDropdown({
    Name = "Select Zone",
@@ -292,8 +290,8 @@ S2:AddToggle({
       while wait() do
        if _G.IGold == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
-        LocalTablePetString.GoldenPet = pet[math.random(1, #pet)]
-        gold(LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet,LocalTablePetString.GoldenPet)
+        GoldenPet = pet[math.random(1, #pet)]
+        gold(GoldenPet,GoldenPet,GoldenPet,GoldenPet,GoldenPet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
@@ -307,8 +305,8 @@ S2:AddToggle({
       while wait() do
        if _G.IDiamond == false then break end
         CreateTable(workspace.Pets[client.Name],pet)
-        LocalTablePetString.DiamondPet = pet[math.random(1, #pet)]
-        diamond(LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet,LocalTablePetString.DiamondPet)
+        DiamondPet = pet[math.random(1, #pet)]
+        diamond(DiamondPet,DiamondPet,DiamondPet,DiamondPet,DiamondPet)
         -- RemoveTable(workspace.Pets[client.Name],pet)
       end
   end    
